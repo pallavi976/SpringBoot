@@ -1,0 +1,113 @@
+package com.springbootmvcemp.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springbootmvcemp.entity.EmployeeEntity;
+import com.springbootmvcemp.model.Employee;
+import com.springbootmvcemp.repository.EmployeeRepository;
+
+@Service
+public class EmployeeService {
+@Autowired
+
+EmployeeRepository employeeRepository;
+
+public void saveDetails(Employee employee) {
+    double pfAmount = (employee.getSalary() * 9) / 100; 
+    double finalSalary = employee.getSalary() - pfAmount;
+    double lpa = employee.getSalary() * 12; // LPA calculation
+
+    EmployeeEntity employeeEntity = new EmployeeEntity();
+    employeeEntity.setId(employee.getId());
+    employeeEntity.setName(employee.getName());
+    employeeEntity.setSalary(employee.getSalary());
+    employeeEntity.setDept(employee.getDept());
+    employeeEntity.setAddress(employee.getAddress());
+    employeeEntity.setPfPercentage(9); 
+    employeeEntity.setPfAmount(pfAmount);
+    employeeEntity.setFinalSalary(finalSalary);
+    employeeEntity.setLpa(lpa); 
+
+    employeeRepository.save(employeeEntity); 
+}
+
+
+
+public List<EmployeeEntity> getAllDetails() {
+	List <EmployeeEntity> employ=employeeRepository.findAll();
+	return employ;
+	
+}
+
+public  EmployeeEntity searchById(long id) {
+	// TODO Auto-generated method stub
+	Optional<EmployeeEntity> optionalData=employeeRepository.findById(id);
+	if (optionalData.isPresent())
+	{
+		EmployeeEntity product=optionalData.get();
+		return product;
+	}
+	else {
+		return null;
+	}
+}
+
+
+public void deleteByIdEmployee(long id) {
+	employeeRepository.deleteById(id);
+}
+
+public Employee editById(long id) {
+	Optional<EmployeeEntity> optionalData = employeeRepository.findById(id);
+    if (optionalData.isPresent()) {
+        EmployeeEntity emp = optionalData.get();
+        Employee employ = new Employee();
+        employ.setId(emp.getId());
+        employ.setName(emp.getName());
+        employ.setSalary(emp.getSalary());
+        employ.setDept(emp.getDept());
+        employ.setAddress(emp.getAddress());
+        return employ;
+       
+    }
+    return null;
+	
+}
+
+public void updateById(long id, Employee employee) {
+	// TODO Auto-generated method stub
+	Optional<EmployeeEntity> optionalData = employeeRepository.findById(id);
+    if (optionalData.isPresent()) {
+        EmployeeEntity entity = optionalData.get();
+  
+        entity.setName(employee.getName());
+        entity.setSalary(employee.getSalary());
+        entity.setDept(employee.getDept());
+        entity.setAddress(employee.getAddress());
+        
+        int pfPercentage=9;
+        double pfAmount;
+    	pfAmount=(employee.getSalary() * 9) / 100;
+        double finalSalary;
+    	finalSalary=employee.getSalary()-pfAmount;
+        double lpa;
+        lpa=employee.getSalary()*12;
+
+        entity.setPfPercentage(pfPercentage);
+        entity.setPfAmount(pfAmount);
+        entity.setFinalSalary(finalSalary);
+        entity.setLpa(lpa);
+
+        employeeRepository.save(entity);
+    }
+	
+}
+
+
+
+
+}

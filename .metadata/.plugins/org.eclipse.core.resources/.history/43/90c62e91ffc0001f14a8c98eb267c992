@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+	<title>Product List</title>
+</head>
+<body>
+	<div>
+		<h2>Product List</h2>
+		<table border="2">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Brand</th>
+					<th>MadeIn</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>DiscountRate</th>
+					<th>TaxRate</th>
+					<th>DiscountPrice</th>
+					<th>OfferPrice</th>
+					<th>FinalPrice</th>
+					<th>StockValue</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product:${products}">
+					<td th:text="${product.Id}"></td>
+					<td th:text="${product.Name}"></td>
+					<td th:text="${product.Brand}"></td>
+					<td th:text="${product.MadeIn}"></td>
+					<td th:text="${product.Price}"></td>
+					<td th:text="${product.Quantity}"></td>
+					<td th:text="${product.DiscountRate}"></td>
+					<td th:text="${product.TaxRate}"></td>
+					<td th:text="${product.DiscountPrice}"></td>
+					<td th:text="${product.OfferPrice}"></td>
+					<td th:text="${product.FinalPrice}"></td>
+					<td th:text="${product.StockValue}"></td>
+					<td><a href="@{'/delete/'+${product.id}}">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+
+
+
+
+
+
+</html>

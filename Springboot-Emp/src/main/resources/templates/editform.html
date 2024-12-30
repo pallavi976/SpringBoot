@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+
+    <h2>Edit Employee</h2>
+	<form th:action="@{/editdetails/{id}(id=${employ?.id})}" th:object="${employ}" method="post">
+        <fieldset>
+            <legend>Employee Details</legend>
+
+            <label for="id">Id:</label>
+            <input type="number" id="id" name="id" th:field="*{id}" required>
+            <br><br>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required>
+            <br><br>
+
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" name="salary" th:field="*{salary}" required>
+            <br><br>
+
+            <label for="dept">Department:</label>
+            <input type="text" id="dept" name="dept" th:field="*{dept}"  required>
+            <br><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" th:field="*{address}" required>
+            <br><br>
+
+            <button type="submit">Update</button>
+        </fieldset>
+    </form>
+</body>
+</html>

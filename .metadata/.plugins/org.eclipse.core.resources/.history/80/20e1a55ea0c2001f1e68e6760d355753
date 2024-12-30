@@ -1,0 +1,20 @@
+package com.springbootmvcemp.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Employee {
+
+	private long Id;
+	private String Name;
+	private double Salary;
+	private String Dept;
+	private String Address;
+	private int pfPercentage=9;
+	
+	
+}

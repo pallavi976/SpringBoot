@@ -1,0 +1,73 @@
+package com.springbootmvcemp.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springbootmvc.entity.ProductEntity;
+import com.springbootmvc.model.ProductModel;
+import com.springbootmvcemp.entity.EmployeeEntity;
+import com.springbootmvcemp.model.Employee;
+import com.springbootmvcemp.repository.EmployeeRepository;
+
+@Service
+public class EmployeeService {
+@Autowired
+
+EmployeeRepository employeeRepository;
+
+public void saveDetails(Employee employee) {
+	
+	double pfAmount;
+	pfAmount=(employee.getSalary()*employee.getPfPercentage())/100;
+    double finalSalary;
+	finalSalary=employee.getSalary()-pfAmount;
+    double LPA;
+    LPA=employee.getSalary()*12;
+
+	
+	EmployeeEntity employeeEntity=new EmployeeEntity();
+	employeeEntity.setId(employee.getId());
+	employeeEntity.setName(employee.getName());
+	employeeEntity.setSalary(employee.getSalary());
+	employeeEntity.setDept(employee.getDept());
+	employeeEntity.setAddress(employee.getAddress());
+	employeeEntity.setPfPercentage(9);
+	employeeEntity.setPfAmount(pfAmount);
+	employeeEntity.setFinalSalary(finalSalary);
+	employeeEntity.setLPA(LPA);
+	employeeRepository.save(employeeEntity);
+	
+	
+}
+
+public List<EmployeeEntity> getAllDetails() {
+	List <EmployeeEntity> employ=employeeRepository.findAll();
+	return employ;
+	
+}
+
+public  EmployeeEntity searchById(long id) {
+	// TODO Auto-generated method stub
+	Optional<EmployeeEntity> optionalData=employeeRepository.findById(id);
+	if (optionalData.isPresent())
+	{
+		EmployeeEntity product=optionalData.get();
+		return product;
+	}
+	else {
+		return null;
+	}
+}
+
+
+public void deleteByIdEmployee(long id) {
+	employeeRepository.deleteById(id);
+}
+
+
+
+
+}
